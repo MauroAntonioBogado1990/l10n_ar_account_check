@@ -2,7 +2,7 @@
     'name': 'Account Check Management',
     'icon': '/account/static/description/l10n.png',
     'countries': ['ar'],
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Accounting, Payment, Check, Third, Issue',
     'author': 'Codize, Exemax',

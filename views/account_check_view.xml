@@ -173,12 +173,12 @@
             </form>
             <sheet position="before">
                 <p class="alert alert-info" role="alert" style="margin-bottom:0px;"
-                    invisible = "id != 'False'">Recuerde que los cheques se crean con los pagos.<br /><b>
+                    invisible="not id">Recuerde que los cheques se crean con los pagos.<br /><b>
                     Solamente</b> debe crear cheques manualmente para realizar algún <b>ajuste</b> o
                     para la <b>carga incial</b> de los mismos.<br />Podrá cargar las operaciones
                     correspondientes una vez que haya guardado el cheque.</p>
                 <p class="alert alert-info oe_edit_only" role="alert" style="margin-bottom:0px;"
-                    invisible="not id "><b>IMPORTANTE:</b> las operaciones de cheques se crean
+                    invisible="id"><b>IMPORTANTE:</b> las operaciones de cheques se crean
                     automáticamente con los pagos, transferencias o los botones disponibles sobre el
                     cheque.<br /><b>SOLO</b> debe crear o modificar operaciones para <b>carga de
                     cheques inciales</b> o ajustes sobre <b>circuitos no
@@ -186,13 +186,14 @@
             </sheet>
             <field name="operation_ids" position="attributes">
                 <attribute name="readonly">0</attribute>
-                <field name="your_field_name"
-                    readonly="id == False" />
+                <!--Se comenta este campo para poder usarlo en Odoo19 <field name="your_field_name"
+                    readonly="id == False" /> -->
             </field>
         </field>
     </record>
-
-    <record model="ir.ui.view" id="view_checks_search">
+    
+    <!--se comenta esta y la de abajo porque generaba error en la vista de odoo 19-->
+    <!-- <record model="ir.ui.view" id="view_checks_search">
         <field name="name">check.search</field>
         <field name="model">account.check</field>
         <field name="arch" type="xml">
@@ -210,6 +211,9 @@
                     domain="[['state', '=', 'holding'], ['payment_date', '&lt;=', context_today().strftime('%Y-%m-%d')]]" />
                 <filter name="to_expire" string="Soon to Expire"
                     domain="[['state', '=', 'holding'], ['payment_date', '&lt;=', (context_today()-datetime.timedelta(days=15)).strftime('%Y-%m-%d')]]" />
+                
+                <filter name="to_expire" string="Soon to Expire"
+                    domain="[('state', '=', 'holding'), ('payment_date', '&lt;=', (context_today() - relativedelta(days=15)).strftime('%Y-%m-%d'))]" />    
                 <group expand="0" string="Group By...">
                     <filter name="issue_date" string="Issue Date"
                         context="{'group_by':'issue_date'}" />
@@ -224,7 +228,40 @@
                 </group>
             </search>
         </field>
-    </record>
+    </record> -->
+    <!--<record model="ir.ui.view" id="view_checks_search">
+        <field name="name">check.search</field>
+        <field name="model">account.check</field>
+        <field name="arch" type="xml">
+            <search string="Checks">
+                <field name="name" />
+                <field name="first_partner_id" />
+                <field name="partner_id" />
+                <field name="journal_id" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
+                <field name="owner_name" />
+                <field name="owner_vat" />
+                <field name="payment_date" />
+
+                <filter name="to_cash" string="Ready to Cash"
+                        domain="[('state', '=', 'holding'), ('payment_date', '&lt;=', context_today().strftime('%Y-%m-%d'))]" />
+                
+                <filter name="to_expire" string="Soon to Expire"
+                        domain="[('state', '=', 'holding'), ('payment_date', '&lt;=', (context_today() + relativedelta(days=15)).strftime('%Y-%m-%d'))]" />
+
+                <group expand="0" string="Group By...">
+                    <filter name="issue_date" string="Issue Date" context="{'group_by':'issue_date'}" />
+                    <filter name="payment_date" string="Payment Date" context="{'group_by':'payment_date'}" />
+                    <filter name="journal_id" string="Journal" context="{'group_by':'journal_id'}" />
+                    <filter name="state" string="State" context="{'group_by':'state'}" />
+                    <filter name="first_partner_id" string="First operation partner" context="{'group_by':'first_partner_id'}" />
+                    <filter name="last_partner_id" string="Last operation partner" context="{'group_by':'partner_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>-->
+
 
     <record model="ir.ui.view" id="view_account_check_calendar">
         <field name="name">account.check.calendar</field>

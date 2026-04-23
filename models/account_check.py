@@ -204,6 +204,7 @@ class AccountCheck(models.Model):
     payment_date = fields.Date(
         index=True,
     )
+    
     journal_id = fields.Many2one(
         'account.journal',
         string='Diario',

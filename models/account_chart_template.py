@@ -7,22 +7,37 @@ class AccountChartTemplate(models.Model):
     _inherit = 'account.chart.template'
     _abstract = True
 
+    # rejected_check_account_id = fields.Many2one(
+    #     'account.account.template',
+    #     'Cuenta de Cheques Rechazados',
+    #     help='Cuenta para Cheques Rechazados, por ejemplo "Cheques Rechazados"',
+    # )
+    # deferred_check_account_id = fields.Many2one(
+    #     'account.account.template',
+    #     'Cuenta de Cheques Diferidos',
+    #     help='Cuenta para Cheques Diferidos, por ejemplo "Cheques Diferidos"',
+    # )
+    # holding_check_account_id = fields.Many2one(
+    #     'account.account.template',
+    #     'Cuenta de Cheques Propios',
+    #     help='Cuenta para Cheques Propios, por ejemplo "Cheques Propios"',
+    # )
+    
     rejected_check_account_id = fields.Many2one(
-        'account.account.template',
+        'account.account',
         'Cuenta de Cheques Rechazados',
         help='Cuenta para Cheques Rechazados, por ejemplo "Cheques Rechazados"',
     )
     deferred_check_account_id = fields.Many2one(
-        'account.account.template',
+        'account.account',
         'Cuenta de Cheques Diferidos',
         help='Cuenta para Cheques Diferidos, por ejemplo "Cheques Diferidos"',
     )
     holding_check_account_id = fields.Many2one(
-        'account.account.template',
+        'account.account',
         'Cuenta de Cheques Propios',
         help='Cuenta para Cheques Propios, por ejemplo "Cheques Propios"',
     )
-
     def _load_template(
             self, company, code_digits=None,
             account_ref=None, taxes_ref=None):

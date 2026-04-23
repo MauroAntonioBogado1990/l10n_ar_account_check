@@ -13,9 +13,10 @@
                     <field name="account_holding" invisible="checkbook_ids == False" />
                 </group>
             </page>
-            <field name="suspense_account_id" position="attributes">
+            <!--se comenta esta vista porque no esta disponible para odoo 19 -->
+            <!-- <field name="suspense_account_id" position="attributes">
                 <attribute name="domain">[('deprecated', '=', False)]</attribute>
-            </field>
+            </field> -->
         </field>
     </record>
 </odoo>
